@@ -127,6 +127,9 @@ class Spanner implements DataModelInterface
                 //Get Max id
                 $result = $t->execute('SELECT (MAX(id) + 1) AS max_id FROM Books');
                 $maxId = $result->rows()->current()['max_id'];
+                if (!$maxId) {
+                    $maxId = 1;
+                }
                 $book['id'] = $maxId;
             }
 
