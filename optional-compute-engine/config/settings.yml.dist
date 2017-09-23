@@ -3,7 +3,7 @@ google_client_id:      YOUR_CLIENT_ID
 google_client_secret:  YOUR_CLIENT_SECRET
 google_project_id:     YOUR_PROJECT_ID
 
-# options are "mysql", "postgres", "mongodb", or "datastore"
+# options are "mysql", "postgres", "mongodb", "spanner", or "datastore"
 bookshelf_backend: mysql
 
 # configure CloudSQL for MySQL or PostgreSQL backend
@@ -12,6 +12,10 @@ cloudsql_database_name: YOUR_DATABASE_NAME
 cloudsql_user: YOUR_CLOUDSQL_USER
 cloudsql_password: YOUR_CLOUDSQL_PASSWORD
 cloudsql_port: 3306
+
+# configure Cloud Spanner
+spanner_instance_id: YOUR_SPANNER_INSTANCE_NAME
+spanner_database_id: YOUR_DATABASE_NAME
 
 # configure Mongo backend
 mongo_url: YOUR_MONGODB_URL
