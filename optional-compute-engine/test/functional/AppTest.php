@@ -110,6 +110,19 @@ class AppTest extends WebTestCase
         );
     }
 
+    public function testBookshelfModelSpanner()
+    {
+        $config = $this->app['config'];
+        $config['bookshelf_backend'] = 'spanner';
+
+        $this->app['config'] = $config;
+
+        $this->assertInstanceOf(
+            'Google\Cloud\Samples\Bookshelf\DataModel\Spanner',
+            $this->app['bookshelf.model']
+        );
+    }
+
     /**
      * @expectedException DomainException
      * @expectedExceptionMessage "bookshelf_backend" must be set in bookshelf config

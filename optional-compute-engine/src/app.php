@@ -24,6 +24,7 @@ use Google\Cloud\Logger\AppEngineFlexHandler;
 // [START pubsub_client]
 use Google\Cloud\PubSub\PubSubClient;
 // [END pubsub_client]
+use Google\Cloud\Samples\Bookshelf\DataModel\Spanner;
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
 use Google\Cloud\Samples\Bookshelf\DataModel\Datastore;
 use Google\Cloud\Samples\Bookshelf\DataModel\MongoDb;
@@ -179,6 +180,12 @@ $app['bookshelf.model'] = function ($app) {
 
     // Data Model
     switch ($config['bookshelf_backend']) {
+        case 'spanner':
+            return new Spanner(
+                $config['google_project_id'],
+                $config['spanner_instance_id'],
+                $config['spanner_database_id']
+            );
         case 'mongodb':
             return new MongoDb(
                 $config['mongo_url'],
