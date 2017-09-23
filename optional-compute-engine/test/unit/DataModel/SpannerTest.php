@@ -36,4 +36,9 @@ class SpannerTest extends \PHPUnit_Framework_TestCase
             $config['spanner_database_id']
         );
     }
+    public static function tearDownAfterClass()
+    {
+        $this->model->instance->delete();
+    }
+    
 }

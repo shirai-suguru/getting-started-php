@@ -21,7 +21,7 @@ class AsyncConnectionTest extends \PHPUnit_Framework_TestCase
     public function testPull()
     {
         $connection = new AsyncConnection();
-        $requestWrapper = $this->getMockBuilder('Google\Cloud\RequestWrapper')
+        $requestWrapper = $this->getMockBuilder('Google\Cloud\Core\RequestWrapper')
             ->disableOriginalConstructor()
             ->getMock();
         $requestWrapper->expects($this->once())
