@@ -137,9 +137,9 @@ class Spanner implements DataModelInterface
                 $book['id'] = $maxId;
             }
 
+            $lastInsertId = $maxId;
             //Insert
             $t->insertOrUpdate('Books', $book);
-            $lastInsertId = $maxId;
             
             $t->commit();
         });
