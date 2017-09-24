@@ -53,7 +53,7 @@ class Spanner implements DataModelInterface
 
         $this->instance = $this->spannerClient->instance($instaceId);
         if (!$this->instance->exists()) {
-            $configurationId = "projects/$projectId/instanceConfigs/regional-us-central1";
+            $configurationId = "projects/$projectId/instanceConfigs/regional-asia-east1";
             $configuration = $this->spannerClient->instanceConfiguration($configurationId);
             $operation = $this->instance->create($configuration);
             $operation->pollUntilComplete();
@@ -120,28 +120,28 @@ class Spanner implements DataModelInterface
         if ($id) {
             $book['id'] = $id;
         }
-        
+
         $this->database->runTransaction(function (Transaction $t) use ($book, $id, &$lastInsertId) {
             $maxId = null;
             if (!$id) {
-                //Get Max id
-                $result = $t->execute('SELECT (MAX(id) + 1) AS max_id FROM Books');
-                $maxId = $result->rows()->current()['max_id'];
-                if (!$maxId) {
-                    $maxId = 1;
+                if ($lastInsertId === 0) {
+                    //Get Max id
+                    $result = $t->execute('SELECT (MAX(id) + 1) AS max_id FROM Books');
+                    $maxId = $result->rows()->current()['max_id'];
+                    if (!$maxId) {
+                        $maxId = 1;
+                    }
+                } else {
+                    $maxId = $lastInsertId;
                 }
                 $book['id'] = $maxId;
             }
 
             //Insert
-            $t->insert('Books', $book);
-
+            $t->insertOrUpdate('Books', $book);
             $lastInsertId = $maxId;
             
             $t->commit();
-
-            // $result = $this->database->execute('SELECT MAX(id) AS max_id FROM Books');
-            // $maxId = $result->rows()->current()['max_id'];
         });
         
         // return max id
